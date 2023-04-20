@@ -1,0 +1,30 @@
+version: "3.9"
+
+
+services:
+  reverse-proxy:
+    build:
+      context: .
+      dockerfile: ./reverse-proxy.Dockerfile
+    container_name: reverse-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./src/www:/var/www/html"
+      - "./certs:/var/www/nginxConfig"
+      - "./nginx-configs:/etc/nginx/conf.d"
+    restart: unless-stopped
+
+  webui:
+    build:
+      context: .
+      dockerfile: ./webui.Dockerfile
+    container_name: webui
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./db:/db"
+      - "./certs:/certs"
+      - "./nginx-configs:/etc/nginx/conf.d"
+      - "./src/www:/var/www/html"
+    restart: unless-stopped
