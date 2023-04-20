@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 require_once('../db.php');
 
-$_GET['ip'] = "1.1.1.1";
+//$_GET['ip'] = "1.1.1.1";
 
 $ip = $_GET["ip"];
 
