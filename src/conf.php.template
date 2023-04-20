@@ -7,7 +7,7 @@ $pw = '';
 if (isset($_POST['password'])) {
     $pw = $_POST["password"];
 }
-if ($pw != _PASSWORD_}) {
+if ($pw != "_PASSWORD_") {
     header("Location: index.php?err=yes");
 }
 $cookie_name = "ip";
