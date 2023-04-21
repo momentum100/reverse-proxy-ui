@@ -1,7 +1,5 @@
-# reverse-proxy-ui
-
-
-# Сам себе Cloudflare
+# reverse-proxy-ui - Сам себе Cloudflare
+# 
 
 Система управления реверс прокси - генерирует сертификаты для доменов и конфигурацию для веб сервера. Скрывает айпи твоего сервера.
 
@@ -24,3 +22,5 @@ git clone https://github.com/momentum100/reverse-proxy-ui && \
 cd ./reverse-proxy-ui && \
 sudo ./start.sh
 ```
+
+Разработка телеграм ботов, автоматизация браузеров, фронт и бек разарботка - телеграм @rq666
