@@ -1,6 +1,6 @@
 <?php
-ob_implicit_flush(true);
-ob_end_flush();
+@ob_implicit_flush(true);
+@ob_end_flush();
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
