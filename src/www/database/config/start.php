@@ -1,4 +1,7 @@
 <?php
+ob_implicit_flush(true);
+ob_end_flush();
+
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -104,6 +107,8 @@ foreach ($data as $fetch) {
 	} else {
 		echo "Domain $d is not pointed to $serverIP\n";
 	}
+	
+
 }
 echo "End!\n";
 
