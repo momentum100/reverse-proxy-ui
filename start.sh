@@ -10,7 +10,9 @@ PASS=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 12 ; echo '')
 /bin/cp -rf ./src/conf.php.template ./src/www/conf.php
 sed -i "s/_PASSWORD_/$PASS/g" ./src/www/conf.php
 docker compose up -d --build
-echo "You can login to:"
-echo "http://$IP"
-echo "with password:"
-echo "$PASS"
+rm -f ./credentials.txt
+echo "You can login to:" >> ./credentials.txt
+echo "http://$IP" >> ./credentials.txt
+echo "with password:" >> ./credentials.txt
+echo "$PASS" >> ./credentials.txt
+cat ./credentials.txt
