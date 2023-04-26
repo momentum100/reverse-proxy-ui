@@ -64,35 +64,36 @@ $cookie_name = "ip";
 
 <body class="p-5 font-base">
 
-<div class="container">
-                    <div class="row justify-content-center">
-                      <div class="col-md-6 text-lg">
-                        <h2>Instructions:</h2>
-                        <p class="text-lg"> 
-                        1. Point domains to server IP<br>
-                        2. Paste domains list to textarea<br>
-                        3. Set <b>destination IP</b><br>
-                        4. Press SAVE domains<br>
-                        5. Click -"Start config generation"<br>
-                        6. Log data appears in bottom gray area<br>
-                        7. <b>Press "Restart web server"</b><br>
-                    </p>
-                      </div>
-                      <div class="col-md-6 text-lg">
-                        <h2>Инструкция</h2>
-                        1. Направь домены на айпи сервера<br>
-                        2. Вставь список доменов в текстовое поле<br>
-                        3. Укажи <b>destination IP (твой основной сервер или трекер)</b><br>
-                        4. Нажми SAVE domains<br>
-                        5. Нажми -"Start config generation"<br>
-                        6. Система сгенерирует сертификаты и конфигурацию веб сервера<br>
-                        7. <b>Нажми "Restart web server"</b><br>
-                      </div>
-                    </div>
-                    <br><br>
-                  </div>
-                  
-                  
+    <h1 class="text-center mb-5">Reverse proxy UI</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-lg">
+                <h2>Instructions:</h2>
+                <p class="text-lg">
+                    1. Point domains to server IP<br>
+                    2. Paste domains list to textarea<br>
+                    3. Set <b>destination IP</b><br>
+                    4. Press SAVE domains<br>
+                    5. Click -"Start config generation"<br>
+                    6. Log data appears in bottom gray area<br>
+                    7. <b>Press "Restart web server"</b><br>
+                </p>
+            </div>
+            <div class="col-md-6 text-lg">
+                <h2>Инструкция</h2>
+                1. Направь домены на айпи сервера<br>
+                2. Вставь список доменов в текстовое поле<br>
+                3. Укажи <b>destination IP (твой основной сервер или трекер)</b><br>
+                4. Нажми SAVE domains<br>
+                5. Нажми -"Start config generation"<br>
+                6. Система сгенерирует сертификаты и конфигурацию веб сервера<br>
+                7. <b>Нажми "Restart web server"</b><br>
+            </div>
+        </div>
+        <br><br>
+    </div>
+
+
     <div class="form-outline w-75 m-auto">
         <label for="domain">Domains:</label>
         <textarea class="form-control" rows="5" id="domain" name="domain" required></textarea>
@@ -121,31 +122,39 @@ $cookie_name = "ip";
             <p class="loading">Loading Data</p>
         </div>
         <div class="form-group text-right">
-            <button type="button" class="btn btn-primary mt-4" id="btn_start" onclick="startConfig()">Start config
+            <button type="button" class="btn btn-primary mt-4" id="btn_start" disabled onclick="startConfig()">
+                <div id="start_spinner" class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                Start
+                config
                 generation on new
-                domains</button>
+                domains
+            </button>
         </div>
         <div class="form-group text-right">
-            <button type="button" class="btn btn-warning mt-2" id="btn_restart" onclick="restartConfig()">Restart web
+            <button type="button" class="btn btn-warning mt-2" id="btn_restart" disabled
+                onclick="restartConfig()">Restart web
                 server</button>
         </div>
         <div id="status" class="form-group text-right">
         </div>
         <textarea class="form-control" rows="5" id="comment" readonly></textarea>
     </div>
-    
-        <footer class="footer" class="text-center">
+
+    <footer class="footer" class="text-center">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12">
-                    <br><Br><br><br><br>2023. Made by WYSINWYG team. Telegram bots, API integrations, browser automation, front and backend development.<br>
-                        Разработка телеграм ботов, интеграции API, автоматизации браузеров, фронт и бек разработка.<br>
-                        Support/Поддержка <a href="https://t.me/CheapNamesSupport">@CheapNamesSupport</a>
+                    <br><Br><br><br><br>2023. Made by WYSINWYG team. Telegram bots, API integrations, browser
+                    automation, front and backend development.<br>
+                    Разработка телеграм ботов, интеграции API, автоматизации браузеров, фронт и бек разработка.<br>
+                    Support/Поддержка <a href="https://t.me/CheapNamesSupport">@CheapNamesSupport</a>
                 </div>
             </div>
         </div>
     </footer>
-    
+
     <script>
         $(document).ready(function () {
             domainList();
@@ -284,6 +293,8 @@ $cookie_name = "ip";
         function startConfig() {
             const ip = $("#ip").val();
             $("#btn_start").attr('disabled', 'disabled');
+            $("#btn_restart").attr('disabled', 'disabled');
+            $("#start_spinner").show()
             $.ajax({
                 type: 'get',
                 data: {
@@ -294,6 +305,8 @@ $cookie_name = "ip";
                     console.log(data)
                     $("#comment").val(data)
                     $('#btn_start').removeAttr('disabled');
+                    $('#btn_restart').removeAttr('disabled');
+                    $("#start_spinner").hide()
                     $('#domain_data tr').map((index, tr) => {
                         console.log(tr);
                         const domain_name = $(tr).find("td:first-child a").get(0)?.innerHTML ?? "Nope"
@@ -304,6 +317,8 @@ $cookie_name = "ip";
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     $('#btn_start').removeAttr('disabled');
+                    $('#btn_restart').removeAttr('disabled');
+                    $("#start_spinner").hide()
                 }
             })
         }
