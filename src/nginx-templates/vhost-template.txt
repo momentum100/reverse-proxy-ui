@@ -1,5 +1,5 @@
 server {
-    server_name DOMAIN;
+    server_name DOMAIN .DOMAIN;
 
     listen 80;
     listen 443 ssl;
