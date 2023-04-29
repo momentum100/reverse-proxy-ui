@@ -185,6 +185,9 @@ $cookie_name = "ip";
                         tr += '</tr>';
                     }
                     $('.loading').hide();
+                    $("#btn_start").removeAttr('disabled');
+                    $("#btn_restart").removeAttr('disabled');
+                    $("#start_spinner").hide()
                     $('#domain_data').html('');
                     $('#domain_data').html(tr);
                     //startConfig();
