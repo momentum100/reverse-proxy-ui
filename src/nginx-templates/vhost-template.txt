@@ -3,14 +3,15 @@ server {
 
     listen 80;
     listen 443 ssl;
-        ssl_certificate /var/www/nginxConfig/certificates/live/DOMAIN/fullchain.pem; # managed by Certbot
-        ssl_certificate_key /var/www/nginxConfig/certificates/live/DOMAIN/privkey.pem; # managed by Certbot
-        #include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
-        #ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+    ssl_certificate /var/www/nginxConfig/certificates/live/DOMAIN/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /var/www/nginxConfig/certificates/live/DOMAIN/privkey.pem; # managed by Certbot
 
-        include /nginx-data/options-ssl-nginx.conf;
-        ssl_dhparam /nginx-data/dhparam.pem;
+    include /nginx-data/options-ssl-nginx.conf;
+    ssl_dhparam /nginx-data/dhparam.pem;
 
+    # Specify the paths for the access and error logs
+    access_log /var/log/nginx/DOMAIN-access.log;
+    error_log /var/log/nginx/DOMAIN-error.log;
 
     location / {
         proxy_set_header X-Real-IP $remote_addr;
@@ -19,4 +20,3 @@ server {
         proxy_pass http://DESTINATIONIP:80;
     }
 }
-
